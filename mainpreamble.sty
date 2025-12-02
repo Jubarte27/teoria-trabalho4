@@ -1,0 +1,162 @@
+\ProvidesPackage{mainpreamble}
+
+\usepackage{subfiles}
+\usepackage{relsize}
+\usepackage{authblk}
+
+\usepackage{graphicx} % Required for inserting images
+\usepackage{float}  % Allows use of [H] float placement
+\usepackage[brazilian]{babel}   %   pt-br
+\usepackage{bookmark}
+\usepackage{booktabs}   % For \toprule, \midrule, \bottomrule, \addlinespace
+\usepackage[left=3cm,right=3cm]{geometry} % Increase horizontal margins
+\usepackage{tabularx}   % For automatic column wrapping to text width
+\usepackage{hyperref}   % For \url and hyperlinks
+\usepackage[nottoc,numbib]{tocbibind} % For making the bibliography appear in the table of contents
+\usepackage{titlesec} % For paragraph to behave like sub-sub-sub-section
+
+\usepackage{amstext}
+\usepackage{amsmath}
+
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xparse}
+\usepackage{calc}
+
+%% Pretty code
+\usepackage{listings}   % For adding text files
+\usepackage{matlab-prettifier}
+
+% Define custom colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolor}{rgb}{0.95,0.95,0.92}
+
+
+\newlength{\imgwidth}
+\newcommand{\scalegraphics}[1]{%   
+    \settowidth{\imgwidth}{\includegraphics{#1}}%
+    \setlength{\imgwidth}{\minof{\imgwidth}{\linewidth}}%
+    \includegraphics[width=\imgwidth]{#1}%
+}
+
+
+\newcommand{\twofigures}[6]{
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{#1}
+  \label{fig:#2}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{#3}
+  \label{fig:#4}
+\end{subfigure}
+\caption{#5}
+\label{fig:#6}
+\end{figure}
+}
+
+
+\ExplSyntaxOn
+\clist_new:N \l_figures_names
+\newcommand{\figurescompare}[6]{
+    \clist_set:Nn \l_figures_names {#1}
+    \begin{figure}[H]
+        \centering
+        \begin{subcaptionblock}{.5\textwidth-.5em}
+            \centering
+            \clist_map_inline:Nn \l_figures_names {
+                \includegraphics[width=1\linewidth]{.out/##1.png}
+                \vskip .5em
+            }
+            \caption{#3}
+        \end{subcaptionblock}%
+        \hskip .5em
+        \begin{subcaptionblock}{.5\textwidth-.5em}
+            \centering
+            \clist_map_inline:Nn \l_figures_names {
+                \includegraphics[width=1\linewidth]{.out/##1#2.png}
+                \vskip .5em
+            }
+            \caption{#4}
+        \end{subcaptionblock}%
+        \caption{#5}
+        \label{fig:#6}
+    \end{figure}
+}
+
+\newcommand{\twofiguresnoupscale}[6]{
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{.5\textwidth-.5em}
+        \centering
+        \scalegraphics{#1}
+        \caption{#2}
+    \end{subfigure}%
+    \hskip .5em
+    \begin{subfigure}{.5\textwidth-.5em}
+        \centering
+        \scalegraphics{#3}
+        \caption{#4}
+    \end{subfigure}
+    \caption{#5}
+    \label{fig:#6}
+\end{figure}
+}
+
+\newlength{\firstimgwidth}
+\newlength{\secondimgwidth}
+\clist_new:N \l_figures_names_no_upscale
+\newcommand{\figurescomparenoupscale}[6]{
+    \begin{figure}[H]
+        \centering
+        \clist_set:Nn \l_figures_names_no_upscale {#1}
+        \clist_map_inline:Nn \l_figures_names_no_upscale {
+            \settowidth{\firstimgwidth}{\includegraphics{.out/##1}}%
+            \settowidth{\secondimgwidth}{\includegraphics{.out/##1#2.png}}%
+            \scalebox{0.8}[0.8]{ %gambiarra, falta de tempo
+                \begin{subcaptionblock}{\firstimgwidth}
+                    \centering
+                    \scalegraphics{.out/##1.png}
+                \end{subcaptionblock}%
+                \hskip .5em
+                \begin{subcaptionblock}{\minof{\textwidth-\firstimgwidth-.5em}{\secondimgwidth}}
+                    \centering
+                    \scalegraphics{.out/##1#2.png}
+                \end{subcaptionblock}%
+            }
+            \vskip 0em
+        }
+        \scalebox{0.8}[0.8]{
+            \begin{subcaptionblock}{\firstimgwidth}
+                \centering
+                \caption{#3}
+            \end{subcaptionblock}%
+            \hskip .5em
+            \begin{subcaptionblock}{\minof{\textwidth-\firstimgwidth-.5em}{\secondimgwidth}}
+                \centering
+                \caption{#4}
+            \end{subcaptionblock}%
+        }
+        \vskip 0em
+        \caption{#5}
+        \label{fig:#6}
+    \end{figure}
+}
+
+\ExplSyntaxOff
+
+\hypersetup{hidelinks}  % Remove colored boxes around links
+
+% For paragraph to behave like sub-sub-sub-section
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
