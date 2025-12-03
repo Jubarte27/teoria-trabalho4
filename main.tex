@@ -19,37 +19,34 @@
 \tableofcontents
 \newpage
 
-\newcommand{\func}[2]{#1(#2)}
-\newcommand{\form}[1]{\textcolor{blue}{\ensuremath{#1}}}
-
 \section{Problema da Aceitação da Palavra Vazia}
+Prove que \PAPV\ é um problema indecidível utilizando uma redução envolvendo \PP.
+\subsection{Problemas}
+
+\subsubsection{Problema da Parada (\PP)}
 \begin{itemize}
-    \begin{item}
-        Problema da Parada (PP). \\
-        Entrada: um par \form{(M, w)}, onde \form{M} é uma máquina de Turing sobre o alfabeto \form{\Sigma} e \form{w \in\Sigma^\star}. \\
-        Pergunta: \form{w\in\ (\func{ACEITA}{M}\cup\func{REJEITA}{M})}?
-    \end{item}
-    \begin{item}
-        Problema da Aceitação da Palavra Vazia (PAPV). \\
-        Entrada: uma máquina de Turing \form{M} sobre alfabeto \form{\Sigma}. \\
-        Pergunta: \form{\epsilon\in\func{ACEITA}{M}}?
-    \end{item}
+    \item Entrada: um par $(M, w)$, onde $M$ é uma máquina de Turing sobre o alfabeto $\Sigma$ e $w \in\Sigma^\star$.
+    \item Pergunta: $w\in\ (\ACEITA{M}\cup\REJEITA{M})$?
 \end{itemize}
 
-Prove que PAPV é um problema indecidível utilizando uma redução envolvendo PP\@.
+\subsubsection{Problema da Aceitação da Palavra Vazia (\PAPV)}
+\begin{itemize}
+    \item Entrada: uma máquina de Turing $M$ sobre alfabeto $\Sigma$.
+    \item Pergunta: $\epsilon\in\ACEITA{M}$?
+\end{itemize}
+
 \subfile{q1/q1}
 
 \section{Problema da Rejeição em Número Ímpar de Passos}
+\PRNIP\ é decidível ou indecidível? Prove a sua resposta.
+\subsection{Problemas}
 
+\subsubsection{Problema da Rejeição em Número Ímpar de Passos (\PRNIP)}
 \begin{itemize}
-    \begin{item}
-        Problema da Rejeição em Número Ímpar de Passos (PRNIP). \\
-        Entrada: um par \form{(M, w)}, sendo M uma Máquina de Turing sobre alfabeto \form{\Sigma}, e \form{w\in\Sigma^\star} uma palavra de entrada para M \\
-        Pergunta: \form{w\in\func{REJEITA}{M}} tendo a computação levado um número ímpar depassos para chegar na rejeição?
-    \end{item}
+    \item Entrada: um par $(M, w)$, sendo M uma Máquina de Turing sobre alfabeto $\Sigma$, e $w\in\Sigma^\star$ uma palavra de entrada para $M$
+    \item Pergunta: $w\in\REJEITA{M}$ tendo a computação levado um número ímpar depassos para chegar na rejeição?
 \end{itemize}
 
-PRNIP é decidível ou indecidível? Prove a sua resposta.
 \subfile{q2/q2}
 
 \end{document}

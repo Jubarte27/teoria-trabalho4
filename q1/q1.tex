@@ -2,5 +2,20 @@
 \usepackage{mainpreamble}
 
 \begin{document}
+\subsection{Demonstração}
+
+Vamos construir uma redução $r : \PP\Rightarrow\PAPV$. Considere o seguinte algoritmo $r$ que, ao receber de entrada uma instância $(M, w)$ de \PP\, retorna uma instância $\func{r}{M, w} = M'$ de \PAPV\, onde $M'$ é a máquina de Turing que, para toda palavra $t$ de entrada, executa os seguintes passos:
+
+\begin{enumerate}
+    \item Apague $t$ da fita, volte o cursor para o início, escreva $w$ na fita e volte o cursor para o início. Vá para o passo 2
+    \item Simule $M$ com entrada $w$. Se a simulação parar (aceitando ou rejeitando), aceite.
+\end{enumerate}
+
+Resta agora provarmos que a redução r descrita acima está correta:
+
+\begin{itemize}
+\item Suponha que (M, w) ∈ Y(PARADA), então M', por definição, ao iniciar seu processamento com a fita vazia, escreve w na fita, simula M com entrada w e eventualmente para. Logo r(M, w) = M' ∈ Y(PARADA-VAZIA)
+\item Suponha que (M,w) \in N(PARADA), então M', por definição, entra em loop infinito ao iniciar seu processamento com a fita vazia. Logo r(M, w) = M′ ∈ N(PARADA-VAZIA)
+\end{itemize}
 
 \end{document}

@@ -26,6 +26,8 @@
 \usepackage{xparse}
 \usepackage{calc}
 
+\usepackage{parskip} % Indentation will not be the default
+
 %% Pretty code
 \usepackage{listings}   % For adding text files
 \usepackage{matlab-prettifier}
@@ -162,3 +164,17 @@
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing*{\paragraph}
 {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+
+
+\newcommand{\func}[2]{\ensuremath{\mathit{#1}(#2)}}
+\newcommand{\PP}{\ensuremath{\mathit{PP}}}
+\newcommand{\PAPV}{\ensuremath{\mathit{PAPV}}}
+\newcommand{\PRNIP}{\ensuremath{\mathit{PRNIP}}}
+
+\newcommand{\ACEITA}[1]{\func{ACEITA}{#1}}
+\newcommand{\REJEITA}[1]{\func{REJEITA}{#1}}
+
+
+\everymath{\color{blue}}
+
