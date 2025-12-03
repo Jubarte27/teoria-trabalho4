@@ -7,8 +7,7 @@ main() {
 
     set_log_depth 0
 
-    build_if_not_exists $IMAGE_NAME "$SCRIPT_DIR/latex/texlive"
-
+    if [[ "$use_docker" == true ]]; then build_if_not_exists $IMAGE_NAME "$SCRIPT_DIR/latex/texlive"; fi
     if [[ "$clean" == true ]]; then remove_aux_files && exit; fi
     if [[ "$autocompile" == true ]]; then extra+=(-pvc); fi
 
@@ -27,6 +26,14 @@ _setConfigArgs() {
             clean=true
             shift
             ;;
+        '--docker')
+            use_docker=true
+            shift
+            ;;
+        '--no-docker')
+            use_docker=false
+            shift
+            ;;
 
         ## doesn't start with "-" it's the end of Options
         [!-]*)
@@ -40,6 +47,14 @@ _setConfigArgs() {
         shift
     done
 
+    if [ -z "$use_docker" ]; then
+        if command_exists latexmk; then
+            use_docker=false
+        else
+            use_docker=true
+        fi
+    fi
+
     ## Positional
     if [ "${1:-}" != '' ]; then MAIN_TEX=$1; fi
 
@@ -47,6 +62,8 @@ _setConfigArgs() {
     MAIN_FILE_NAME=$(basename "$MAIN_TEX")
     MAIN_DIR=$(realpath "$(dirname "$MAIN_TEX")")
 }
+
+command_exists() { command -v "$1" >/dev/null 2>&1; }
 
 run_docker() { docker run --rm -v "$MAIN_DIR:/data" -w /data $IMAGE_NAME "$@"; }
 
@@ -68,16 +85,24 @@ remove_aux_files() {
     enter_new_func "Removing auxiliary files"
     local DEPTH="$NEXT_LOG_DEPTH"
 
-    run_docker latexmk -aux-directory=.tmp -c;
+    run latexmk -aux-directory=.tmp -c;
 
     log_info "Done." "$DEPTH"
+}
+
+run() {
+    if [[ "$use_docker" == true ]]; then
+        run_docker "$@" && return;
+    fi
+
+    (cd "$MAIN_DIR" && "$@") && return
 }
 
 latexmk_compile() {
     enter_new_func "Compiling $1"
     local DEPTH="$NEXT_LOG_DEPTH"
 
-    run_docker latexmk -aux-directory=.tmp -pdflua "${@:2}" "$1"
+    run latexmk -aux-directory=.tmp -pdflua "${@:2}" "$1"
 
     log_info "Done." "$DEPTH"
 }

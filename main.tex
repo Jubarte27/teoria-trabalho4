@@ -1,17 +1,14 @@
 \documentclass{article}
 \usepackage{mainpreamble}
 
-\title{\textbf{Programação de Algoritmos Básicos de Processamento de Imagens \vskip 1em \smaller{Relatório do Trabalho Prático 1}}}
+\title{\textbf{Redução de problemas \vskip 1em \smaller{Teoria da Computação N}}}
 
-\author{Enzo Borges Segala}
-\author{Jonathan Gabriel Nunes Mendes}
-\author{Matheus Machado Cezar}
-\author{Marcos Henrique Volpato de Moraes}
-\author{Miguel Predebon Abichequer}
-\author{Nicolas Rosenthal Dal Corso}
-\author{Rafael Silveira Bandeira}
+\author{\ldots}
+\author{Jorgefran Souza Batista (00172589)}
+\author{Matheus Machado Cezar (00597894)}
+\author{Richard Muniz Rosa (00327098)}
 \affil{Universidade Federal do Rio Grande do Sul}
-\date{11/11/2025}
+\date{09/12/2025}
 
 \begin{document}
 
@@ -22,10 +19,37 @@
 \tableofcontents
 \newpage
 
-\section{Tarefas}
+\newcommand{\func}[2]{#1(#2)}
+\newcommand{\form}[1]{\textcolor{blue}{\ensuremath{#1}}}
 
+\section{Problema da Aceitação da Palavra Vazia}
+\begin{itemize}
+    \begin{item}
+        Problema da Parada (PP). \\
+        Entrada: um par \form{(M, w)}, onde \form{M} é uma máquina de Turing sobre o alfabeto \form{\Sigma} e \form{w \in\Sigma^\star}. \\
+        Pergunta: \form{w\in\ (\func{ACEITA}{M}\cup\func{REJEITA}{M})}?
+    \end{item}
+    \begin{item}
+        Problema da Aceitação da Palavra Vazia (PAPV). \\
+        Entrada: uma máquina de Turing \form{M} sobre alfabeto \form{\Sigma}. \\
+        Pergunta: \form{\epsilon\in\func{ACEITA}{M}}?
+    \end{item}
+\end{itemize}
+
+Prove que PAPV é um problema indecidível utilizando uma redução envolvendo PP\@.
 \subfile{q1/q1}
 
+\section{Problema da Rejeição em Número Ímpar de Passos}
+
+\begin{itemize}
+    \begin{item}
+        Problema da Rejeição em Número Ímpar de Passos (PRNIP). \\
+        Entrada: um par \form{(M, w)}, sendo M uma Máquina de Turing sobre alfabeto \form{\Sigma}, e \form{w\in\Sigma^\star} uma palavra de entrada para M \\
+        Pergunta: \form{w\in\func{REJEITA}{M}} tendo a computação levado um número ímpar depassos para chegar na rejeição?
+    \end{item}
+\end{itemize}
+
+PRNIP é decidível ou indecidível? Prove a sua resposta.
 \subfile{q2/q2}
 
 \end{document}
