@@ -2,5 +2,23 @@
 \usepackage{mainpreamble}
 
 \begin{document}
+\subsection{Demonstração}
+
+Vamos construir uma redução $r : \PP\Rightarrow\PRNIP$. Considere o seguinte algoritmo $r$ que, ao receber de entrada uma instância $(M, w)$ de \PP, retorna uma instância $\func{r}{M, w} = (M', w)$ de \PRNIP, onde $M'$ é a máquina de Turing com 2 fitas semi-infinitas e com um cursor de leitura-escrita em cada fite (e, em um passo de $M'$, cada cursor pode se mover para direita, para esquerda ou se manter parado). Para toda palavra $t$ de entrada escrita na primeira fita de $M'$, $M'$ executa os seguintes passos:
+
+\begin{enumerate}
+    \item Mantendo o cursor dasegunda fita parada no início, apague a palavra de entrada $t$ da primeira fita e volte o cursor ao começo da primeira fita (ir e voltar sempre acontece em um número par de passos). Vá para o passo 2
+    \item Escreva $w$ na primeira e na segunda fita ao mesmo tempo. Volte o cursor de ambas as fitas aos seus respectivos inícios, ao mesmo tempo (ir e voltar sempre acontece em um número par de passos). Vá para o passo 3
+    \item Mantendo o cursor da segunda fita parado, simule a Máquina $M$ com a entrada $w$ na primeira fita. Se a simulação parar (aceitando ou rejeitando), vá para o passo 4
+    \item Mantendo o cursor da primeira fita parado, simule a Máquina $M$ com a entrada $w$ na segunda fita. Se a simulação parar (aceitando ou rejeitando), vá para o passo 5
+    \item Rejeite $t$
+\end{enumerate}
+
+Resta agora provarmos que a redução $r$ descrita acima está correta:
+
+\begin{itemize}
+    \item Suponha que $(M,w) \in \SIM{\PP}$, $k$ seja o número de passos que $M$ faz ao processar $w$. Pela maneira como $M'$ foi construída, ao receber $w$ de entrada na primeira fita, rejeita w após executar exatamente $4|w|+4+2k+1$ passos (um número ímpar). Por isso, $\func{r}{M,w} = (M',w)\in\SIM{\PRNIP}$
+    \item Suponha que $(M,w) \in \NAO{\PP}$. Pela maneira como $M'$ foi construída, $M'$ entra em loop infinito para $w$. Logo $\func{r}{M,w}=(M',w)\in\NAO{\PRNIP}$
+\end{itemize}
 
 \end{document}

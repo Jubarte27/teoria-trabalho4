@@ -3,7 +3,6 @@
 
 \title{\textbf{Redução de problemas \vskip 1em \smaller{Teoria da Computação N}}}
 
-\author{\ldots}
 \author{Jorgefran Souza Batista (00172589)}
 \author{Matheus Machado Cezar (00597894)}
 \author{Richard Muniz Rosa (00327098)}
@@ -19,34 +18,12 @@
 \tableofcontents
 \newpage
 
-\section{Problema da Aceitação da Palavra Vazia}
-Prove que \PAPV\ é um problema indecidível utilizando uma redução envolvendo \PP.
-\subsection{Problemas}
-
-\subsubsection{Problema da Parada (\PP)}
-\begin{itemize}
-    \item Entrada: um par $(M, w)$, onde $M$ é uma máquina de Turing sobre o alfabeto $\Sigma$ e $w \in\Sigma^\star$.
-    \item Pergunta: $w\in\ (\ACEITA{M}\cup\REJEITA{M})$?
-\end{itemize}
-
-\subsubsection{Problema da Aceitação da Palavra Vazia (\PAPV)}
-\begin{itemize}
-    \item Entrada: uma máquina de Turing $M$ sobre alfabeto $\Sigma$.
-    \item Pergunta: $\epsilon\in\ACEITA{M}$?
-\end{itemize}
-
+\section{\acrlong*{PAPV}}
+Prove que o \PAPV{} é um problema indecidível utilizando uma redução envolvendo o \PP.
 \subfile{q1/q1}
 
-\section{Problema da Rejeição em Número Ímpar de Passos}
-\PRNIP\ é decidível ou indecidível? Prove a sua resposta.
-\subsection{Problemas}
-
-\subsubsection{Problema da Rejeição em Número Ímpar de Passos (\PRNIP)}
-\begin{itemize}
-    \item Entrada: um par $(M, w)$, sendo M uma Máquina de Turing sobre alfabeto $\Sigma$, e $w\in\Sigma^\star$ uma palavra de entrada para $M$
-    \item Pergunta: $w\in\REJEITA{M}$ tendo a computação levado um número ímpar depassos para chegar na rejeição?
-\end{itemize}
-
+\section{\acrlong*{PRNIP}}
+\PRNIP{} é decidível ou indecidível? Prove a sua resposta.
 \subfile{q2/q2}
 
 \end{document}
